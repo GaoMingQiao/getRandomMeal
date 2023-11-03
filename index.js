@@ -4,7 +4,7 @@ const container = document.querySelector(".container");
 const renderRecette = function (data) {
   const ingredientPlusMesure = [];
   let param = data.meals[0].strYoutube.slice(-11);
-  console.log(param);
+  // console.log(param);
   for (let i = 0; i <= 20; i++) {
     let ingredient = data.meals[0][`strIngredient${i}`];
     let mesure = data.meals[0][`strMeasure${i}`];
@@ -13,25 +13,17 @@ const renderRecette = function (data) {
       ingredientPlusMesure.push(`${ingredient}: ${mesure}`);
     }
   }
-  console.log(ingredientPlusMesure);
-  const str = (document.querySelector(".ingre").innerHTML = ingredientPlusMesure
-    .map((item) => {
-      console.log(item);
-      return `
-    <ul>
-    <li>${item}</li>
-    </ul>
-    `;
-    })
-    .join(""));
+  // console.log(ingredientPlusMesure);
 
-  // const str = ingredientPlusMesure.join("\r\n");
-  // console.log(str);
   const html = `
     <div class="row gx-4 gx-lg-5 align-items-center">
-    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="${data.meals[0].strMealThumb}" alt="recette" /></div>
+    <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="${
+      data.meals[0].strMealThumb
+    }" alt="recette" /></div>
     <div class="my-3 text-center">
-    <a class="btn btn-outline-danger flex-shrink-0 px-5" type="button" href = "${data.meals[0].strYoutube}" target='_blanc'>
+    <a class="btn btn-outline-danger flex-shrink-0 px-5" type="button" href = "${
+      data.meals[0].strYoutube
+    }" target='_blanc'>
     <i class="fa-brands fa-youtube"></i>
     </a>
     </div>
@@ -45,7 +37,16 @@ const renderRecette = function (data) {
         <p class="lead">instructions: <br>${data.meals[0].strInstructions}</p>
         
        
-        <p class="lead ingre"> ingredients: ${str} </p>
+        <p class="lead ingre"> ingredients: ${ingredientPlusMesure
+          .map((item) => {
+            console.log(item);
+            return `
+          
+          <li>${item}</li>
+          
+          `;
+          })
+          .join("")} </p>
         
 
         </div>
@@ -53,6 +54,16 @@ const renderRecette = function (data) {
     `;
 
   container.insertAdjacentHTML("beforeend", html);
+  //   const str = (document.querySelector(".ingre").innerHTML = ingredientPlusMesure
+  //     .map((item) => {
+  //       console.log(item);
+  //       return `
+
+  //     <li>${item}</li>
+
+  //     `;
+  //     })
+  //     .join(""));
 };
 
 const getRecette = async () => {
@@ -68,6 +79,7 @@ const getRecette = async () => {
 };
 
 getRecette();
+
 btn.addEventListener("click", () => {
   if (container.firstElementChild) container.firstElementChild.remove();
   getRecette();
