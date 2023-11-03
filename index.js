@@ -10,10 +10,23 @@ const renderRecette = function (data) {
     let mesure = data.meals[0][`strMeasure${i}`];
 
     if (ingredient && mesure) {
-      ingredientPlusMesure.push(`${ingredient}: ${mesure}  <br>`);
+      ingredientPlusMesure.push(`${ingredient}: ${mesure}`);
     }
-    // console.log(ingredientPlusMesure);
   }
+  console.log(ingredientPlusMesure);
+  const str = (document.querySelector(".ingre").innerHTML = ingredientPlusMesure
+    .map((item) => {
+      console.log(item);
+      return `
+    <ul>
+    <li>${item}</li>
+    </ul>
+    `;
+    })
+    .join(""));
+
+  // const str = ingredientPlusMesure.join("\r\n");
+  // console.log(str);
   const html = `
     <div class="row gx-4 gx-lg-5 align-items-center">
     <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="${data.meals[0].strMealThumb}" alt="recette" /></div>
@@ -32,7 +45,9 @@ const renderRecette = function (data) {
         <p class="lead">instructions: <br>${data.meals[0].strInstructions}</p>
         
        
-         <p class="lead"> ingredients: <br> ${ingredientPlusMesure}</p>
+        <p class="lead ingre"> ingredients: ${str} </p>
+        
+
         </div>
     </div>
     `;
